@@ -72,6 +72,8 @@ class OrdersTable
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+
+            ])
+            ->defaultSort('updated_at', 'desc');
     }
 }

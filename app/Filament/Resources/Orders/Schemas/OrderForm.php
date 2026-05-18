@@ -10,7 +10,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Schemas\Components\Actions;
+// use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
@@ -180,6 +180,7 @@ class OrderForm
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(100)
+                                    ->default(0)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function ($state, Set $set, Get $get) {
                                         // Panggil helper kalkulasi total
@@ -209,7 +210,6 @@ class OrderForm
                                 TextInput::make('cash')
                                     ->reactive()
                                     ->columnSpanFull()
-                                    ->live(onBlur: true)
                                     ->numeric()
                                     // ->default(50000)
                                     ->prefix('IDR ')
@@ -222,41 +222,15 @@ class OrderForm
                                         100000,
                                         200000,
                                     ])
-                                    ->live(onBlur: true) // Update otomatis saat kursor pindah
+                                    ->live() // Update otomatis saat kursor pindah
                                     ->afterStateUpdated(function ($state, Set $set, Get $get) {
                                         $total_payment = $get('total_payment') ?? 0;
                                         $refund = $state - $total_payment;
                                         $set('refund', $refund);
                                     }),
-                                // Select::make('cash')
-                                //     ->label('Cash')
-                                //     ->placeholder('Pilih atau ketik nominal...')
-                                //     ->columnSpanFull()
-                                //     ->options([
-                                //         10000 => '10.000',
-                                //         20000 => '20.000',
-                                //         50000 => '50.000',
-                                //         100000 => '100.000',
-                                //         200000 => '200.000',
-                                //     ])
-                                //     ->searchable()
-                                //     ->createOptionForm([
-                                //         TextInput::make('custom_cash')
-                                //             ->numeric()
-                                //             ->label('Nominal Lainnya')
-                                //             ->required()
-                                //     ])
-                                //     // Atau gunakan allowHtml jika ingin tampilan lebih cantik
-                                //     ->prefix('IDR')
-                                //     ->live() // Penting agar nilai Refund langsung terhitung otomatis
-                                //     ->afterStateUpdated(function ($state, Set $set, Get $get) {
-                                //         $total_payment = $get('total_payment') ?? 0;
-                                //         $refund = $state - $total_payment;
-                                //         $set('refund', $refund);
-                                //     }),
+
                                 TextInput::make('refund')
                                     ->columnSpanFull()
-                                    ->live(onBlur: true)
                                     ->disabled()
                                     ->prefix('IDR ')
                                     ->default(0)
