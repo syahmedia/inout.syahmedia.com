@@ -51,7 +51,20 @@ class OrderForm
                         'new' => 'info',
                         'procesing' => 'warning',
                         'canceled' => 'danger',
-                        'completed' => 'success'
+                        'completed' => 'success',
+                    ]),
+                ToggleButtons::make('status_order')
+                    ->label('Status Order')
+                    ->columnSpanFull()
+                    ->grouped()
+                    ->default('paid')
+                    ->options([
+                        'unpaid' => 'unpaid',
+                        'Paid' => 'paid',
+                    ])
+                    ->colors([
+                        'Paid' => 'success',
+                        'unpaid' => 'warning',
                     ]),
                 Grid::make()
                     ->columns(3)

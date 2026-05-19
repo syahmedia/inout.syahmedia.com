@@ -20,6 +20,7 @@ class OrdersTable
                 TextColumn::make('id')
                     ->label('Order ID'),
                 TextColumn::make('status')
+                    ->label('Progres Status')
                     ->sortable()
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
@@ -29,22 +30,28 @@ class OrdersTable
                         'canceled' => 'danger',
                         default => 'gray',
                     }),
+                TextColumn::make('status_order')
+                    ->label('Payment status')
+                    ->sortable()
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Paid' => 'success',
+                        'unpaid' => 'warning',
+                        default => 'gray',
+                    }),
                 TextColumn::make('customer.name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('total_price')
-                    ->toggleable(isToggledHiddenByDefault: true)
                     ->money('IDR')
                     ->sortable(),
                 TextColumn::make('discount')
-                    ->suffix('%')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->suffix('%'),
                 TextColumn::make('discount_amount')
                     ->money('IDR')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('total_payment')
-                    ->money('IDR')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->money('IDR'),
                 TextColumn::make('date_order')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->date('D, d-m-Y')

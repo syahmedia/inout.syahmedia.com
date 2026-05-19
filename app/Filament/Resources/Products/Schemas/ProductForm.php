@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Products\Schemas;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Support\RawJs;
 
 class ProductForm
 {
@@ -19,7 +20,9 @@ class ProductForm
                 TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->prefix('IDR'),
+                    ->prefix('IDR')
+                    ->mask(RawJs::make('$money($input)'))
+                    ->stripCharacters(','),
                 TextInput::make('stock')
                     ->required()
                     ->numeric(),

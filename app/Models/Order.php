@@ -24,6 +24,7 @@ class Order extends Model
           'status',
           'discount',
           'discount_amount',
+          'status_order',
           'total_payment'
      ];
 }
